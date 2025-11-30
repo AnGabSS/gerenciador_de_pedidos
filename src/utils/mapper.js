@@ -1,14 +1,19 @@
+import { ObjectId } from "bson";
+
 export class OrderMapper {
-mapRequestToDatabase = (inputData) => {
-    return {
-        orderId: inputData.numeroPedido.split('-')[0], 
-        value: Number(inputData.valorTotal),
-        creationDate: new Date(inputData.dataCriacao),
-        items: inputData.items.map(item => ({
-            productId: parseInt(item.idItem), 
-            quantity: item.quantidadeItem,
-            price: Number(item.valorItem)
-        }))
-    };
-};
-};
+    mapRequestToDatabase(data) {
+        return {
+            orderId: data.orderId,
+            value: Number(data.value), 
+            creationDate: new Date(data.creationDate), 
+            items: data.items.map(item => {
+                return {
+                    id: item.id ? item.id : new ObjectId().toString(),
+                    productId: Number(item.productId),
+                    quantity: Number(item.quantity),
+                    price: Number(item.price)
+                };
+            })
+        };
+    }
+}

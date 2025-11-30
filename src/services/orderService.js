@@ -26,7 +26,8 @@ export class OrderService {
     }
 
     async updateOrder(orderId, updateData) {
-        const modifiedCount = await this.orderRepository.updateOrder(orderId, updateData);
+        const dbOrderData = this.mapper.mapRequestToDatabase(updateData);
+        const modifiedCount = await this.orderRepository.updateOrder(orderId, dbOrderData);
         return modifiedCount;
     }
 }

@@ -1,3 +1,5 @@
+import { isValidOrderData } from "../utils/validators.js";
+
 export class OrderController {
     constructor(orderService) {
         this.orderService = orderService;
@@ -6,6 +8,9 @@ export class OrderController {
     async createOrder(req, res) {
         try {
             const orderData = req.body;
+            if(isValidOrderData(orderData).length > 0) {
+                return  res.status(400).json({ error: "Informações do pedido são inválidas", details: isValidOrderData(orderData) });
+            }
             const orderId = await this.orderService.createOrder(orderData);
             res.status(201).json({ orderId });
         } catch (error) {
@@ -57,6 +62,9 @@ export class OrderController {
         try {
             const orderId = req.params.id;
             const updateData = req.body;
+            if(isValidOrderData(updateData).length > 0) {
+                return  res.status(400).json({ error: "Informações do pedido são inválidas", details: isValidOrderData(updateData) });
+            }
             const modifiedCount = await this.orderService.updateOrder(orderId, updateData);
             if (modifiedCount > 0) {
                 res.status(200).json({ message: "Order updated successfully" });
@@ -64,6 +72,7 @@ export class OrderController {
                 res.status(404).json({ error: "Order not found" });
             }
         } catch (error) {
+            console.log(error);
             res.status(500).json({ error: "Failed to update order" });
         }
     }

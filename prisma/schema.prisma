@@ -14,6 +14,7 @@ generator client {
 
 datasource db {
   provider = "mongodb"
+  // Foi usado o prisma 5 ao invés do prisma 7 devido a falta de suporte do prisma 7 com javascript, já que versões mais recentes optam pelo uso do typescript.
   url      = env("DATABASE_URL")
 }
 
