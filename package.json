@@ -7,17 +7,21 @@
   "scripts": {
     "start": "node src/index.js",
     "dev": "nodemon src/index.js",
-    "prisma:generate": "prisma generate"
+    "prisma:generate": "prisma generate",
+    "swagger": "node ./swagger.js"
   },
   "dependencies": {
     "@prisma/client": "5.15.0",
+    "body-parser": "^2.2.1",
     "bson": "^7.0.0",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
-    "express": "^4.21.1"
+    "express": "^4.21.2",
+    "swagger-ui-express": "^5.0.1"
   },
   "devDependencies": {
     "nodemon": "^3.1.7",
-    "prisma": "5.15.0"
+    "prisma": "5.15.0",
+    "swagger-autogen": "^2.23.7"
   }
 }

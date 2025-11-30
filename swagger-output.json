@@ -1,0 +1,314 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Order Management API",
+    "description": "API para gerenciamento de pedidos com MongoDB e Prisma",
+    "version": "1.0.0"
+  },
+  "host": "localhost:3000",
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/api/": {
+      "post": {
+        "tags": [
+          "Orders"
+        ],
+        "summary": "Criar novo pedido",
+        "description": "Valida os dados e cria um pedido no MongoDB via Prisma.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Dados do pedido",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/OrderInput"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Pedido criado",
+            "schema": {
+              "$ref": "#/definitions/Order"
+            }
+          },
+          "400": {
+            "description": "Erro de validação",
+            "schema": {
+              "$ref": "#/definitions/Error400"
+            }
+          }
+        }
+      }
+    },
+    "/api/list": {
+      "get": {
+        "tags": [
+          "Orders"
+        ],
+        "summary": "Listar todos os pedidos",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "Lista recuperada",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "example": "array"
+                },
+                "items": {
+                  "$ref": "#/definitions/Order"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/{id}": {
+      "get": {
+        "tags": [
+          "Orders"
+        ],
+        "summary": "Buscar pedido por ID",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "ID do MongoDB"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Pedido encontrado",
+            "schema": {
+              "$ref": "#/definitions/Order"
+            }
+          },
+          "404": {
+            "description": "Pedido não encontrado",
+            "schema": {
+              "$ref": "#/definitions/Error404"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Orders"
+        ],
+        "summary": "Atualizar pedido",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "ID do MongoDB"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Dados atualizados",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/OrderInput"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Pedido atualizado",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Order updated successfully"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/definitions/Error400"
+            },
+            "description": "Bad Request"
+          },
+          "404": {
+            "schema": {
+              "$ref": "#/definitions/Error404"
+            },
+            "description": "Not Found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Orders"
+        ],
+        "summary": "Deletar pedido",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "ID do MongoDB"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Pedido deletado",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Order deleted successfully"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "404": {
+            "schema": {
+              "$ref": "#/definitions/Error404"
+            },
+            "description": "Not Found"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Item": {
+      "type": "object",
+      "properties": {
+        "productId": {
+          "type": "number",
+          "example": 101
+        },
+        "quantity": {
+          "type": "number",
+          "example": 2
+        },
+        "price": {
+          "type": "number",
+          "example": 500.5
+        }
+      }
+    },
+    "OrderInput": {
+      "type": "object",
+      "properties": {
+        "orderId": {
+          "type": "string",
+          "example": "PEDIDO-TESTE-001"
+        },
+        "value": {
+          "type": "number",
+          "example": 1500.5
+        },
+        "creationDate": {
+          "type": "string",
+          "example": "2025-11-29T20:30:00.000Z"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Item"
+          }
+        }
+      }
+    },
+    "Order": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "6566e9..."
+        },
+        "orderId": {
+          "type": "string",
+          "example": "PEDIDO-TESTE-001"
+        },
+        "value": {
+          "type": "number",
+          "example": 1500.5
+        },
+        "creationDate": {
+          "type": "string",
+          "example": "2025-11-29T20:30:00.000Z"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Item"
+          }
+        }
+      }
+    },
+    "Error400": {
+      "type": "object",
+      "properties": {
+        "error": {
+          "type": "string",
+          "example": "Informações do pedido são inválidas"
+        },
+        "details": {
+          "type": "array",
+          "example": [
+            "Campo X é obrigatório"
+          ],
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "Error404": {
+      "type": "object",
+      "properties": {
+        "error": {
+          "type": "string",
+          "example": "Order not found"
+        }
+      }
+    },
+    "Error500": {
+      "type": "object",
+      "properties": {
+        "error": {
+          "type": "string",
+          "example": "Internal Server Error"
+        }
+      }
+    }
+  }
+}
