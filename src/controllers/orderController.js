@@ -1,4 +1,4 @@
-import { isValidOrderData } from "../utils/validators.js";
+import { isValidOrderData } from "../validators/orderValidator.js";
 
 export class OrderController {
     constructor(orderService) {

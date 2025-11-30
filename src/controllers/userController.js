@@ -1,4 +1,4 @@
-import { isValidUserCreationData, isValidUserUpdateData } from "../utils/validators.js";
+import { isValidUserCreationData, isValidUserUpdateData } from "../validators/orderValidator.js";
 
 export class UserController {
     constructor(userService, mapper) {

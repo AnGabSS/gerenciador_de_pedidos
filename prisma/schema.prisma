@@ -5,10 +5,7 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  // --- CORREÇÃO 2: O NOME CORRETO É prisma-client-js ---
-  provider = "prisma-client-js"
-
-  // --- CORREÇÃO 3: AJUDA O PRISMA A ENTENDER O ALPINE LINUX ---
+  provider      = "prisma-client-js"
   binaryTargets = ["native", "linux-musl-openssl-3.0.x"]
 }
 
