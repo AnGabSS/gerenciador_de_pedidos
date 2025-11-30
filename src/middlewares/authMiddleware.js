@@ -1,7 +1,10 @@
 import jwt from 'jsonwebtoken';
 
 export const authenticateToken = (req, res, next) => {
+    // Pega o token do cabeçalho Authorization
     const authHeader = req.headers['authorization'];
+
+    // O token geralmente vem no formato "Bearer <token>", então extraímos apenas a parte do token, descartando o "Bearer "
     const token = authHeader && authHeader.split(' ')[1]; 
 
     if (!token) {

@@ -10,10 +10,8 @@ export class UserService {
     } 
 
     async createUser(userData) {
-        if (userData.password) {
-            userData.password = await this._hashPassword(userData.password);
-        }
-
+        // Hash da senha antes de salvar, por segurança
+        userData.password = await this._hashPassword(userData.password);
         const dbUserData = this.mapper.mapRequestToCreateUserData(userData);
         const userId = await this.userRepository.createUser(dbUserData);
         return userId;

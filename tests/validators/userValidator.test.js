@@ -76,7 +76,6 @@ describe('Validação de Atualização de Usuário (isValidUserUpdateData)', () 
     });
 
     test('Deve retornar válido se o objeto for vazio (nenhuma atualização)', () => {
-        // Pela lógica do seu código, se não passar nada, não entra nos IFs de erro
         const result = isValidUserUpdateData({});
         expect(result.isValid).toBe(true);
     });

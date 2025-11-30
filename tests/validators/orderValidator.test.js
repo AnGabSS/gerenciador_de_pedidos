@@ -1,8 +1,6 @@
 import { isValidOrderData } from "../../src/validators/orderValidator.js";
 
 describe('Validação de Dados do Pedido (isValidOrderData)', () => {
-
-    // Objeto base válido para usar nos testes
     const validOrder = {
         orderId: "PEDIDO-123",
         value: 150.50,
@@ -13,14 +11,11 @@ describe('Validação de Dados do Pedido (isValidOrderData)', () => {
         ]
     };
 
-    // --- CAMINHO FELIZ ---
     test('Deve retornar válido quando todos os dados estão corretos', () => {
         const result = isValidOrderData(validOrder);
         expect(result.isValid).toBe(true);
         expect(result.errors).toHaveLength(0);
     });
-
-    // --- VALIDAÇÃO DE CAMPOS DO PEDIDO ---
 
     test('Deve retornar erro se orderId não for informado ou for vazio', () => {
         const invalidData = { ...validOrder, orderId: "" };
@@ -31,7 +26,6 @@ describe('Validação de Dados do Pedido (isValidOrderData)', () => {
     });
 
     test('Deve retornar erro se value não for informado', () => {
-        // Remove a propriedade value
         const { value, ...invalidData } = validOrder; 
         const result = isValidOrderData(invalidData);
         
@@ -46,8 +40,6 @@ describe('Validação de Dados do Pedido (isValidOrderData)', () => {
         expect(result.isValid).toBe(false);
         expect(result.errors).toContain('value não pode ser negativo');
     });
-
-    // --- VALIDAÇÃO DE ITENS ---
 
     test('Deve retornar erro se a lista de items for vazia', () => {
         const invalidData = { ...validOrder, items: [] };
@@ -65,19 +57,17 @@ describe('Validação de Dados do Pedido (isValidOrderData)', () => {
         expect(result.errors).toContain('items é obrigatório e deve ser um array com pelo menos um item');
     });
 
-    // --- VALIDAÇÃO DE DADOS DENTRO DO ITEM ---
-
     test('Deve detectar erro no productId (não inteiro) dentro de um item', () => {
         const invalidData = {
             ...validOrder,
             items: [
-                { productId: "abc", quantity: 1, price: 10 } // Item inválido
+                { productId: "abc", quantity: 1, price: 10 }
             ]
         };
         const result = isValidOrderData(invalidData);
         
         expect(result.isValid).toBe(false);
-        // Verifica se a mensagem de erro contém o índice correto
+
         expect(result.errors[0]).toMatch(/Item na posição 0: productId inválido/);
     });
 
@@ -85,7 +75,7 @@ describe('Validação de Dados do Pedido (isValidOrderData)', () => {
         const invalidData = {
             ...validOrder,
             items: [
-                { productId: 1, quantity: 0, price: 10 } // Quantidade 0
+                { productId: 1, quantity: 0, price: 10 } 
             ]
         };
         const result = isValidOrderData(invalidData);
@@ -98,7 +88,7 @@ describe('Validação de Dados do Pedido (isValidOrderData)', () => {
         const invalidData = {
             ...validOrder,
             items: [
-                { productId: 1, quantity: 1, price: -50.00 } // Preço negativo
+                { productId: 1, quantity: 1, price: -50.00 } 
             ]
         };
         const result = isValidOrderData(invalidData);
@@ -109,9 +99,9 @@ describe('Validação de Dados do Pedido (isValidOrderData)', () => {
 
     test('Deve acumular múltiplos erros se houver várias falhas', () => {
         const invalidData = {
-            orderId: "",        // Erro 1
-            value: -100,        // Erro 2
-            items: []           // Erro 3
+            orderId: "",        
+            value: -100,        
+            items: []           
         };
         const result = isValidOrderData(invalidData);
 

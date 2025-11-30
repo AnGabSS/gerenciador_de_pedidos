@@ -14,8 +14,8 @@ export const isValidUserCreationData = (data) => {
     }
 
     // Valida a senha
-    if (!data.password || typeof data.password !== 'string' || data.password.length < 6) {
-        errors.push('password é obrigatório e deve ter pelo menos 6 caracteres');
+    if (!data.password || typeof data.password !== 'string' || data.password.length < 6 || data.password.length > 48) {
+        errors.push('password é obrigatório e deve ter entre 6 e 48 caracteres');
     }
 
     return {
