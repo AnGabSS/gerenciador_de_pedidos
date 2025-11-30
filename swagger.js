@@ -25,13 +25,12 @@ const doc = {
     OrderInput: {
       orderId: "PEDIDO-TESTE-001",
       value: 1500.50,
-      creationDate: "2025-11-29T20:30:00.000Z",
       items: [
         { $ref: '#/definitions/Item' }
       ]
     },
 
-    // Modelo de Resposta (GET) - Inclui o ID do banco
+    // Entidade do pedido no banco de dados
     Order: {
       id: "6566e9...",
       orderId: "PEDIDO-TESTE-001",
@@ -40,6 +39,27 @@ const doc = {
       items: [
         { $ref: '#/definitions/Item' }
       ]
+    },
+
+    // Modelo para criação de usuário pelo método post
+    CreateUserInput: {
+      username: "davidbowie",
+      email: "david@bowie.com",
+      password: "starman123"
+    },
+
+    // Modelo para atualização de usuário pelo método put
+    UpdateUserInput: {
+      username: "davidbowie",
+      email: "david@bowie.com"
+    },
+
+    // Entidade do usuário no banco de dados
+    User: {
+      id: "6566e9...",
+      username: "davidbowie",
+      email: "david@bowie.com",
+      password: "starman123"
     },
 
     // Erros Padronizados
@@ -57,11 +77,8 @@ const doc = {
 };
 
 const outputFile = './swagger-output.json';
-// Aponte para o arquivo principal onde suas rotas são carregadas (index.js ou app.js)
 const routes = ['./src/index.js']; 
 
-/* Gera o arquivo JSON */
 swaggerAutogen()(outputFile, routes, doc).then(() => {
-    // Opcional: Inicia o servidor apenas após gerar a doc
     import('./src/index.js'); 
 });

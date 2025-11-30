@@ -5,7 +5,7 @@ export class OrderMapper {
         return {
             orderId: data.orderId,
             value: Number(data.value), 
-            creationDate: new Date(data.creationDate), 
+            creationDate: new Date(), 
             items: data.items.map(item => {
                 return {
                     id: item.id ? item.id : new ObjectId().toString(),

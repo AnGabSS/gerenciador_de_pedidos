@@ -13,11 +13,6 @@ export const isValidOrderData = (data) => {
         errors.push('value não pode ser negativo');
     }
 
-    // Valida a data de criação do pedido
-    if (!data.creationDate || isNaN(Date.parse(data.creationDate))) {
-        errors.push('creationDate é obrigatório e deve ser uma data válida (ISO 8601)');
-    }
-
     // Valida a lista de itens
     if (!Array.isArray(data.items) || data.items.length === 0) {
         errors.push('items é obrigatório e deve ser um array com pelo menos um item');

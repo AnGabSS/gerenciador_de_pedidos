@@ -713,10 +713,6 @@
           "type": "number",
           "example": 1500.5
         },
-        "creationDate": {
-          "type": "string",
-          "example": "2025-11-29T20:30:00.000Z"
-        },
         "items": {
           "type": "array",
           "items": {
@@ -749,6 +745,57 @@
           "items": {
             "$ref": "#/definitions/Item"
           }
+        }
+      }
+    },
+    "CreateUserInput": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string",
+          "example": "davidbowie"
+        },
+        "email": {
+          "type": "string",
+          "example": "david@bowie.com"
+        },
+        "password": {
+          "type": "string",
+          "example": "starman123"
+        }
+      }
+    },
+    "UpdateUserInput": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string",
+          "example": "davidbowie"
+        },
+        "email": {
+          "type": "string",
+          "example": "david@bowie.com"
+        }
+      }
+    },
+    "User": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "6566e9..."
+        },
+        "username": {
+          "type": "string",
+          "example": "davidbowie"
+        },
+        "email": {
+          "type": "string",
+          "example": "david@bowie.com"
+        },
+        "password": {
+          "type": "string",
+          "example": "starman123"
         }
       }
     },
