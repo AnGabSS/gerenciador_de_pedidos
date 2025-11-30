@@ -34,3 +34,12 @@ type Item {
   quantity  Int
   price     Float  @db.Double
 }
+
+model User {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  username String @unique
+  email    String @unique
+  password String
+
+  @@map("users")
+}

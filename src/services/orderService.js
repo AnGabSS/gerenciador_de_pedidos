@@ -2,10 +2,11 @@ export class OrderService {
     constructor(orderRepository, mapper) {
         this.orderRepository = orderRepository;
         this.mapper = mapper;
+        this.JWT_SECRET = process.env.JWT_SECRET || 'sua_chave_secreta_super_segura';
     }
 
     async createOrder(orderData) {
-        const dbOrderData = this.mapper.mapRequestToDatabase(orderData);
+        const dbOrderData = this.mapper.mapRequestToOrderCreateData(orderData);
         const orderId = await this.orderRepository.saveOrder(dbOrderData);
         return orderId;
     }
@@ -26,9 +27,11 @@ export class OrderService {
     }
 
     async updateOrder(orderId, updateData) {
-        const dbOrderData = this.mapper.mapRequestToDatabase(updateData);
+        const dbOrderData = this.mapper.mapRequestToOrderUpdateData(updateData);
         const modifiedCount = await this.orderRepository.updateOrder(orderId, dbOrderData);
         return modifiedCount;
     }
+
+
 }
 

@@ -8,7 +8,9 @@ export class OrderController {
     async createOrder(req, res) {
         try {
             const orderData = req.body;
-            if(isValidOrderData(orderData).length > 0) {
+
+            // Valida se campos do pedido são válidos, retornando uma lista de erros se houver.
+            if(isValidOrderData(orderData).errors.length > 0) {
                 return  res.status(400).json({ error: "Informações do pedido são inválidas", details: isValidOrderData(orderData) });
             }
             const orderId = await this.orderService.createOrder(orderData);
